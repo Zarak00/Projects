@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quick Question</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #111827;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --accent: #f59e0b;
+    --accent-2: #34d399;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(1200px 600px at 50% -20%, rgba(255,255,255,0.07), transparent),
+                radial-gradient(800px 400px at 100% 0%, rgba(255,255,255,0.04), transparent),
+                var(--bg);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    color: var(--text);
+  }
+  .card {
+    width: min(92vw, 700px);
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: clamp(20px, 4vw, 36px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+    position: relative;
+    overflow: hidden;
+  }
+  .shine {
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.15), transparent 40%);
+    filter: blur(60px);
+    pointer-events: none;
+    animation: float 10s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(-10px) }
+    50% { transform: translateY(10px) }
+  }
+  h1 {
+    margin: 0 0 14px 0;
+    font-size: clamp(28px, 4.4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: 0.2px;
+    text-align: center;
+  }
+  p {
+    margin: 0 0 26px 0;
+    font-size: clamp(14px, 2.4vw, 18px);
+    color: var(--muted);
+    text-align: center;
+  }
+  .btns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 520px) {
+    .btns { grid-template-columns: 1fr 1fr; }
+  }
+  a.button {
+    display: inline-block;
+    text-align: center;
+    padding: 14px 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    will-change: transform;
+  }
+  a.button:hover { transform: translateY(-1px); }
+  .primary {
+    background: linear-gradient(180deg, var(--accent), #f97316);
+    color: #111827;
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.35);
+    border-color: rgba(0,0,0,0.05);
+  }
+  .secondary {
+    background: linear-gradient(180deg, rgba(52, 211, 153, 0.2), rgba(52, 211, 153, 0.08));
+    color: var(--text);
+    box-shadow: 0 10px 30px rgba(52, 211, 153, 0.2);
+  }
+  .tiny {
+    margin-top: 14px;
+    font-size: 12px;
+    text-align: center;
+    color: var(--muted);
+  }
+  .footer {
+    margin-top: 22px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="shine"></div>
+    <h1>Tyler, would you like to go on a date with me?</h1>
+    <p>Worst case: a fun story. Best case: chemistry ★★★.</p>
+    <div class="btns">
+      <a class="button primary" id="yesBtn" href="mailto:zarakm40@gmail.com?subject=Yes%20to%20the%20date&body=Hey!%20Let%E2%80%99s%20lock%20something%20in.%20I%E2%80%99m%20free%20on%20__%20or%20___.">Yes — let’s do it</a>
+      <a class="button secondary" href="mailto:zarakm40@gmail.com?subject=Maybe%20later&body=Not%20a%20no...%20just%20a%20plot%20twist%20later%20%E2%9C%A8">Maybe later 😉</a>
+    </div>
+    <div class="tiny">Prefer texting? <a href="sms:+14435839602?&body=Yes%20to%20a%20date%20%E2%9C%85">Tap here to text</a>.</div>
+    <div class="footer">Made with good vibes ✨</div>
+  </div>
+<script>
+  (function() {
+    function confetti() {
+      const duration = 1200;
+      const defaults = { startVelocity: 30, spread: 360, ticks: 120, zIndex: 9999 };
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+      const colors = ['#fbbf24', '#34d399', '#60a5fa', '#f472b6', '#f87171'];
+      const particles = 120;
+      const body = document.body;
+      for (let i = 0; i < particles; i++) {
+        const p = document.createElement('div');
+        const size = Math.floor(randomInRange(6, 10));
+        p.style.position = 'fixed';
+        p.style.top = '-10px';
+        p.style.left = randomInRange(0, window.innerWidth) + 'px';
+        p.style.width = size + 'px';
+        p.style.height = size * 0.6 + 'px';
+        p.style.background = colors[Math.floor(Math.random() * colors.length)];
+        p.style.opacity = 0.9;
+        p.style.transform = 'rotate(' + randomInRange(0, 360) + 'deg)';
+        p.style.borderRadius = '2px';
+        p.style.pointerEvents = 'none';
+        p.style.transition = 'transform 1.2s ease-out, top 1.2s ease-out, opacity 1.2s ease-out';
+        body.appendChild(p);
+        setTimeout(() => {
+          p.style.top = window.innerHeight + 'px';
+          p.style.transform = 'translateY(' + randomInRange(20, 120) + 'px) rotate(' + randomInRange(0, 720) + 'deg)';
+        }, 10);
+        setTimeout(() => p.remove(), duration + 400);
+      }
+    }
+    document.getElementById('yesBtn').addEventListener('click', confetti);
+  })();
+</script>
+</body>
+</html>
